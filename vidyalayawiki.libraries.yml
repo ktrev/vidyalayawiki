@@ -1,0 +1,5 @@
+vidyalayawiki_lib:
+  version: 1.x
+  css:
+    theme:
+      css/vidyalayawiki.css: {}

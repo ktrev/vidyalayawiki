@@ -1,0 +1,283 @@
+<?php
+
+
+use Drupal\Core\Routing\CurrentRouteMatch;
+use Drupal\Component\Utility\Html;
+use Drupal\node\NodeInterface;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\file\Entity\File;
+use Drupal\user\Entity\User;
+use Drupal\views\Views;
+use Drupal\views\ViewExecutable;
+
+/**
+ * @file
+ * Contains hooks for vidyalayawiki module.
+ */
+ 
+ /**
+ * Implements hook_theme().
+ */
+function vidyalayawiki_theme($existing, $type, $theme, $path) {
+  return [
+    'vidyalayawiki-manage-template' => [
+      'variables' => [
+        'role' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for node entities.
+ *
+ * Before saving a KB node create a taxonomy term of that name.
+ */
+function vidyalayawiki_node_presave(NodeInterface $node) {
+  if ($node->getType() == 'payment_details') {
+    if (isset($_GET['uid']) && $_GET['uid'] > 0) {
+      $node->{'field_paid_to'}->setValue(['target_id' => $_GET['uid']]);
+    }
+  }
+  
+
+  if ($node->getType() == 'article') {
+    if ($node->isNew() == 1) {
+      /* if (isset($_GET['kb'])) {
+        $kb = $_GET['kb'];
+      }
+      else {
+        $kb = \Drupal::database()->query("SELECT nid FROM `node_field_data` WHERE type = 'knowledge_board' AND title = 'Free-Form'")->fetchField();
+      }
+      $node->set('field_knowledge_board', $kb); */
+      /* if (isset($_GET['skb'])) {
+        $skb = $_GET['skb'];
+      }
+      else {
+        $skb = \Drupal::database()->query("SELECT nid FROM `node_field_data` WHERE type = 'sub_knowledge_board' AND title = 'General' AND nid IN (SELECT entity_id FROM `node__field_knowledge_board` WHERE field_knowledge_board_target_id = :kb)", [':kb' => $kb])->fetchField();
+      }
+      $node->set('field_sub_knowledge_board', $skb); */
+      /* if (isset($_GET['topic'])) {
+        $topic = $_GET['topic'];
+      }
+      else {
+        $topic_node = Node::create([
+          'type' => 'topic',
+          'title' => $node->title->value,
+          'langcode' => 'en',
+          'uid' => '1',
+          'status' => 1,
+          'field_knowledge_board' => ['target_id' => $kb],
+          'field_sub_knowledge_board' => ['target_id' => $skb],
+        ]);
+        $topic_node->save();
+        $topic = $topic_node->id();
+      }
+      $node->set('field_topic', $topic);
+      $topic_term_id = \Drupal::database()->query("SELECT field_indic_wiki_tag_target_id FROM `node__field_indic_wiki_tag` WHERE entity_id = :nid", [':nid' => $topic])->fetchField(); 
+      } */
+    }
+    else {
+      if ($node->field_status->value == 'Published' && $node->field_payment_status->value == 0) {
+        $user_ids = [];
+        $writers = $node->get('field_writer')->getValue();
+        $format_checkers = $node->get('field_format_checker')->getValue();
+        $markup_experts = $node->get('field_markup_expert')->getValue();
+        $language_experts = $node->get('field_language_expert')->getValue();
+      } 
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for node entities.
+ *
+ */
+function vidyalayawiki_node_insert(NodeInterface $node) {
+  if ($node->getType() == 'payment_details') {
+    if (isset($node->field_article_title->value) && trim($node->field_article_title->value) != '' && trim($node->field_article_title->value) != null) {
+      $article_title = trim($node->field_article_title->value);
+      $article_nid = \Drupal::database()->query("SELECT nid FROM `node_field_data` WHERE title = :title", [':title' => $article_title])->fetchField();
+      if (isset($article_nid) && $article_nid > 0) {
+        $article_details = Node::load($article_nid);
+        $article_details->save();
+        $payment_details = Node::load($node->id());
+        $payment_details->field_article->target_id = $article_nid;
+        $payment_details->save();
+        
+      }
+      else {
+        $namespace_tid = 284;
+        $article_node = Node::create([
+          'type' => 'article',
+          'title' => $article_title,
+          'langcode' => 'en',
+          'uid' => \Drupal::currentUser()->id(),
+          'status' => 1,
+          'field_status' => ['value' => 'Published'],
+          'field_payment_status' => ['value' => 0],
+          'field_namespace' => ['target_id' => $namespace_tid],
+          'field_contributors' => $node->field_paid_to->target_id,
+          'field_writer' => $node->field_paid_to->target_id,
+          'field_link_to_the_indic_wiki' => [
+            'uri' => 'https://www.vidyalayawiki.in/index.php?title=' . $article_title,
+            'title' => 'Go to the Vidyalaya Wiki page'
+           ],
+        ]);
+        $article_node->save();
+        $payment_details = Node::load($node->id());
+        $payment_details->field_article->target_id = $article_node->id();
+        $payment_details->save();
+      }
+    }
+  }
+  if ($node->getType() == 'article') {
+    if ($node->field_status->value == 'Published' && $node->field_payment_status->value == 0) {
+      $user_ids = [];
+      $writers = $node->get('field_writer')->getValue();
+      $format_checkers = $node->get('field_format_checker')->getValue();
+      $markup_experts = $node->get('field_markup_expert')->getValue();
+      $language_experts = $node->get('field_language_expert')->getValue();
+      foreach($writers as $writer) {
+        array_push($user_ids, $writer['target_id']);
+      }
+      make_payment($user_ids, $node->id());
+    }
+  }
+}
+
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Attach the css file to all pages.
+ */
+function vidyalayawiki_page_attachments(array &$page) {
+  $page['#attached']['library'][] = 'vidyalayawiki/vidyalayawiki_lib';
+}
+
+
+/**
+ * Implements hook_form_alter().
+ *
+ */
+function vidyalayawiki_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'node_payment_details_form') {
+    if (isset($_GET['uid']) && $_GET['uid'] > 0) {
+      $form['field_paid_to']['#access'] = FALSE;
+    }
+  }
+  if ($form_id == 'node_payment_details_form' || $form_id == 'node_payment_details_edit_form') {
+    foreach (array_keys($form['actions']) as $action) {
+      if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+        $form['actions'][$action]['#submit'][] = '_node_payment_details_form_submit';
+      }
+    }
+  }
+  if ($form_id == 'user_register_form') {
+    $loggedin_uid = $currentUid = \Drupal::currentUser()->id();
+    if ($loggedin_uid != 1) {
+      $form['account']['pass']['#access'] = FALSE;
+      $form['account']['status']['#access'] = FALSE;
+      $form['account']['notify']['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Custom form submit function for payment details node types.
+ */
+function _node_payment_details_form_submit($form, $form_state) {
+  if (isset($_GET['uid'])) {
+    $uid = $_GET['uid'];
+  }
+  else {
+    $uid = 0;
+  }
+  if ($uid !=0) {
+    $form_state->setRedirect('view.payment_status.page_1',
+      [
+        'user' => $uid,
+        'uid' => $details[0]->uid,
+        'result_id' => $result_id
+      ]
+    );
+  }
+}
+
+/**
+ * Custom function for adding payment information.
+ */
+function add_payment($user_id, $role, $nid =  NULL) {
+  $amount_to_pay = \Drupal::database()->query("SELECT field_amount_value FROM `node__field_amount` WHERE entity_id IN (SELECT entity_id FROM `node__field_role` WHERE field_role_target_id = :role)", [":role" => $role])->fetchField();
+  $user_name = \Drupal::database()->query("SELECT name FROM `users_field_data` WHERE uid = :uid", [":uid" => $user_id])->fetchField();
+  if ($nid != NULL) {
+    $title = \Drupal::database()->query("SELECT title FROM `node_field_data` WHERE nid = :nid", [":nid" => $nid])->fetchField();
+    $node_title = 'Payment to ' . $user_name . ' for ' . $title;
+    $payment_node = Node::create([
+      'type' => 'payment_details',
+      'title' => $node_title,
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'field_article' => ['target_id' => $nid],
+      'field_paid_to' => ['target_id' => $user_id],
+      'field_amount' => ['value' => $amount_to_pay],
+      'field_payment_status' => ['value' => 0],
+    ]);
+  }
+  else {
+    $node_title = 'Payment to ' . $user_name;
+    $payment_node = Node::create([
+      'type' => 'payment_details',
+      'title' => $node_title,
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'field_paid_to' => ['target_id' => $user_id],
+      'field_amount' => ['value' => $amount_to_pay],
+      'field_payment_status' => ['value' => 0],
+    ]);
+  }
+  $payment_node->save(); 
+}
+
+/**
+ * Custom function to make payment.
+ */
+function make_payment($user_ids, $nid =  NULL) {
+  $payment_per_user = 1500;
+  for($i = 0; $i < count($user_ids); $i++) {
+    $user_name = \Drupal::database()->query("SELECT name FROM `users_field_data` WHERE uid = :uid", [":uid" => $user_ids[$i]])->fetchField();
+    if ($nid != NULL) {
+      $title = \Drupal::database()->query("SELECT title FROM `node_field_data` WHERE nid = :nid", [":nid" => $nid])->fetchField();
+      $node_title = 'Payment to ' . $user_name . ' for ' . $title;
+      $payment_node = Node::create([
+        'type' => 'payment_details',
+        'title' => $node_title,
+        'langcode' => 'en',
+        'uid' => '1',
+        'status' => 1,
+        'field_article_title' => ['value' => $title],
+        'field_paid_to' => ['target_id' => $user_ids[$i]],
+        'field_amount' => ['value' => $payment_per_user],
+        'field_payment_status' => ['value' => 0],
+      ]);
+    }
+    else {
+      $node_title = 'Payment to ' . $user_name;
+      $payment_node = Node::create([
+        'type' => 'payment_details',
+        'title' => $node_title,
+        'langcode' => 'en',
+        'uid' => '1',
+        'status' => 1,
+        'field_paid_to' => ['target_id' => $user_ids[$i]],
+        'field_amount' => ['value' => $payment_per_user],
+        'field_payment_status' => ['value' => 0],
+      ]);
+    }
+    $payment_node->save(); 
+  }
+}

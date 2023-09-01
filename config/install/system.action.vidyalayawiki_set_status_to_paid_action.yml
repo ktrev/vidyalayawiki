@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vidyalayawiki_set_status_to_paid_action
+label: 'Mark as Paid'
+type: node
+plugin: vidyalayawiki_set_status_to_paid_action
+configuration: {  }

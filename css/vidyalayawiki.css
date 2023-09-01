@@ -1,0 +1,369 @@
+html, body {
+  font-size: 15px !important;
+}
+section#block-createknowledgeboards a > div,
+section#block-createsubknowledgeboards a > div,
+section#block-createtopicsunderaskb a > div,
+section#block-createarticlesunderatopic a > div,
+section#block-makepayment a > div {
+  display: inline-block;
+}
+
+div.iconblocks {
+  width: 10%;
+  color: #FFFFFF;
+  font-size: 20px;
+  text-align: center;
+}
+div.linkblocks {
+  width: 80%;
+  text-align: center;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+section#block-createknowledgeboards,
+section#block-createsubknowledgeboards,
+section#block-createtopicsunderaskb,
+section#block-createarticlesunderatopic,
+section#block-makepayment,
+section#block-makeapaymentgeneral {
+  background: #1B7A9F;
+  padding: 1%;
+}
+section#block-createsubknowledgeboards a > div {
+  font-size: 18px !important;
+}
+section#block-createknowledgeboards {
+  width: 25%;
+}
+section#block-makepayment {
+  width: 16%;
+  margin-left: -1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+section#block-makeapaymentgeneral {
+  width: 16%;
+  margin-left: 3%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+h2.w3-padding.w3-block-title {
+  font-size: 22px;
+  border-bottom: 1px solid #1B7A9F;
+}
+section#block-views-block-sub-knowledge-boards-block-1,
+section#block-views-block-knowledge-boards-block-1,
+section#block-views-block-topics-block-1,
+section#block-views-block-articles-block-1,
+section#block-views-block-manage-sub-knowledge-boards-block-1,
+section#block-views-block-manage-topics-block-1 {
+  width: 65%;
+  margin-top: 5%;
+}
+thead > tr {
+  background: #146f7f !important;
+  color: #FFFFFF;
+}
+table a {
+  color: #78329a !important;
+}
+.path-view-search-indic-wiki #block-pagetitle > h1::before {
+  content: "\f002";
+  font-family: 'FontAwesome';
+  margin-right: 2%;
+}
+.site-name a, .site-slogan {
+  text-transform: inherit !important;
+  padding-left: 1px !important;
+}
+h3.site-slogan.w3-large.w3-show-block {
+  font-style: italic;
+}
+/* h1.page-title {
+  color:#21607a;
+} */
+.block-facets h2::before {
+  content: "\f0b0";
+  margin: 10px;
+  font-family: 'FontAwesome';
+  color: #c84a32;
+}
+.block-facets h2 {
+  border-bottom: 1px solid #c84a32 !important;
+}
+form#views-exposed-form-users-page-1 {
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+.view-users table ul.dropbutton {
+  background-color: #ee6449 !important;
+}
+.view-users table ul.dropbutton a {
+  color: #FFFFFF !important;
+}
+.view-users td .dropbutton-widget {
+  position: inherit !important;
+  width: 50% !important;
+  margin: auto;
+}
+.view-users table ul.dropbutton a::before {
+  content: "\f044";
+  font-family: 'FontAwesome';
+  margin-right: 14%;
+}
+section#block-makeapaymentgeneral a {
+  color: #FFFFFF !important;
+  font-size: 22px;
+}
+.w3-row.view.view-payment-summary.view-id-payment_summary.view-display-id-block_1 {
+  color: #068206;
+}
+.w3-row.view.view-payment-summary.view-id-payment_summary.view-display-id-block_2 {
+  color: red;
+}
+td.views-field.views-field-edit-node i {
+  color: #ee6449;
+}
+section#block-uploadareport a {
+  width: 14%;
+  background: #1B7A9F;
+  color: #FFFFFF;
+  padding: 14px;
+  margin-left: 1%;
+  font-size: 20px;
+}
+.field-group-tabs-wrapper {
+  float: left;
+  width: 100%;
+}
+details.article-status[open] > summary {
+  padding: 6px 6px 8px 8px;
+  background: #bcb2b2;
+  float: left;
+  width: 100%;
+}
+details.article-status .w3-section.details-wrapper {
+  background: #efefef !important;
+  float: left;
+  width: 100%;
+  margin-top: 0 !important;
+  padding-left: 1%;
+}
+details.article-status.js-form-wrapper.form-wrapper {
+  float: left;
+  width: 100%;
+  margin-left: -14px;
+  background: #efefef;
+}
+details.article-status.js-form-wrapper.form-wrapper div {
+  padding-left: 8px;
+  padding-bottom: 4px;
+}
+details > summary {
+  font-weight: bold;
+}
+form#user-login-form, form#user-pass, form#user-register-form {
+  padding: 1% !important;
+}
+.site-branding__name a {
+  font-size: 27px;
+  font-family: serif;
+  letter-spacing: 1px;
+}
+h1.page-title {
+  background: #444f9e;
+  color: #FFF;
+  font-weight: normal;
+  padding: 15px;
+}
+li.facet-item {
+  margin-left: 10%;
+}
+input#edit-submit-users, input#edit-submit {
+  background: #c84a32;
+  color: #fff;
+  border: navajowhite;
+  padding: 4px;
+  letter-spacing: 1px;
+}
+
+form#views-exposed-form-users-page-1 div {
+  width: 50%;
+  display: inline;
+  margin-right: 5%;
+}
+i.fa.fa-edit {
+  color: #c84a32;
+}
+.nav-tabs > li {
+  list-style: none;
+}
+.drupal-tabs .is-active a {
+  color: #444f9e !important;
+}
+.nav-tabs > li > a {
+  font-weight: normal !important;
+  color: #5c5a5a !important;
+}
+form#user-login-form, form#user-pass, form#user-register-form {
+  padding: 3% !important;
+  width: 60%;
+  margin: auto;
+  background: #ffffff;
+  border: 1px solid #444f9e;
+  margin-bottom: 4%;
+  margin-top: 4%;
+  box-shadow: rgb(45 35 66 / 40%) 0 4px 8px, rgb(45 35 66 / 30%) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+form#user-login-form > div {
+  margin-bottom: 4%;
+}
+.path-user .drupal-tabs {
+  margin-top: 3%;
+}
+.field.field--label-inline > div {
+  width: auto;
+  display: inline;
+}
+.field__label {
+  font-weight: bold;
+}
+#block-article-categories h2.block-title::before {
+  content: "\f02c";
+  font-family: 'FontAwesome';
+  color: #c84a32;
+  margin-right: 10px;
+}
+#block-article-categories h2.block-title,
+#block-article-writers h2.block-title,
+#block-article-namespace h2.block-title,
+#block-contentfield-2 h2.block-title,
+#block-contentfield-3 h2.block-title,
+#block-contentfield-4 h2.block-title  {
+  border-bottom: 1px solid #c84a32 !important;
+}
+#block-article-writers h2.block-title::before {
+  content: "\f0c0";
+  font-family: 'FontAwesome';
+  color: #c84a32;
+  margin-right: 10px;
+}
+#block-article-namespace h2.block-title::before {
+  content: "\f15c";
+  font-family: 'FontAwesome';
+  color: #c84a32;
+  margin-right: 10px;
+}
+#block-contentfield-2 h2.block-title::before {
+  content: "\f085";
+  font-family: 'FontAwesome';
+  color: #c84a32;
+  margin-right: 10px;
+}
+#block-contentfield-3 h2.block-title::before {
+  content: "\f02c";
+  font-family: 'FontAwesome';
+  color: #c84a32;
+  margin-right: 10px;
+}
+#block-contentfield-4 h2.block-title::before {
+  content: "\f02c";
+  font-family: 'FontAwesome';
+  color: #c84a32;
+  margin-right: 10px;
+}
+.sidebar .block-facets {
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+  padding: 5px;
+}
+form#views-exposed-form-search-indic-wiki-page-1 > div {
+  width: 30%;
+  display: inline-block;
+  margin-right: 45px;
+}
+form#views-exposed-form-search-indic-wiki-page-1 {
+  margin-bottom: 4%;
+}
+#edit-search-api-fulltext {
+  box-shadow: rgb(0 0 0 / 12%) 0px 3px 5px;
+  padding: 5px;
+  border: 1px solid #c4c3c3;
+}
+input#edit-submit-search-indic-wiki, input#edit-reset {
+  border: none;
+  background: #c84a32;
+  color: #fff;
+  padding: 2%;
+  margin-right: 4%;
+}
+input#edit-submit-search-indic-wiki:hover, input#edit-reset:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+#block-views-block-articles-by-a-user-block-1 h2 {
+  border-bottom: 1px solid #c84a32 !important;
+}
+#block-views-block-articles-by-a-user-block-1 h2::before {
+  content: "\f15b";
+  margin: 10px;
+  font-family: 'FontAwesome';
+  color: #c84a32;
+}
+div#block-views-block-articles-by-a-user-block-1 {
+  margin-top: 5%;
+}
+.page-node-72 .field.field--name-body {
+  font-size: 17px;
+  line-height: 210%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+div#block-article-link-to-indicwiki {
+   text-align: center;
+}
+.field.field--name-field-link-to-the-indic-wiki a {
+  color: #146F7F !important;
+  font-size: 21px;
+}
+form#import-articles-form {
+  padding: 1%;
+  background: #e8e8e8;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+.description {
+  font-size: 12px;
+  margin-top: 1%;
+}
+form#import-payment-form, form#import-users-form {
+  border: 2px solid #efefef;
+  padding: 2%;
+  background: beige;
+}
+input#edit-upload-file-upload {
+  border: 1px solid #dfdfdf;
+}
+.alert.alert-status {
+  background: orange;
+  border-radius: 0;
+  color: #fff;
+  font-weight: 600;
+}
+
+input#edit-submit-payment-information {
+    background: #444F9E;
+    color: #fff;
+    border: #444F9E;
+    margin-top: 2%;
+    padding: 7px;
+    width: 10%;
+}
+form#views-exposed-form-payment-information-page-2 {
+    border: 1px solid #dfdfdf;
+    padding: 1%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+div#edit-node-bulk-form--2 {
+    margin-bottom: 2%;
+}

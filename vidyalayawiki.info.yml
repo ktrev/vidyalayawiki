@@ -1,0 +1,5 @@
+name: 'Vidyalaya Wiki Management'
+type: module
+description: 'Custom module to handle Vidyalaya Wiki Workflow.'
+core_version_requirement: ^9
+package: 'custom'

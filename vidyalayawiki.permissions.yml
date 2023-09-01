@@ -1,0 +1,18 @@
+'access anonymous':
+  title: 'Access Custom Links'
+  description: 'Give anonymous users permission to access some links.'
+'access kb':
+  title: 'Access Knowledge Board Managers'
+  description: 'Give Knowledge Board Managers permission to access some pages.'
+'access admins':
+  title: 'Access Admins'
+  description: 'Give Drupal admins & portal admins permission to access some pages.'
+'access skb':
+  title: 'Access Sub Knowledge Managers'
+  description: 'Give Sub Knowledge Managers permission to access some pages.'
+'access experts':
+  title: 'Access Experts'
+  description: 'Give Experts permission to access some pages.'
+'access authenticate':
+  title: 'Access Authenticated Users'
+  description: 'Give authenticated users permission to access some pages.'

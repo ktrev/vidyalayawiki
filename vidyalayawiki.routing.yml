@@ -1,0 +1,9 @@
+vidyalayawiki.manage:
+  path: '/manage'
+  defaults:
+    _controller: '\Drupal\vidyalayawiki\Controller\VidyalayaWikiController::manage'
+    _title: 'Manage'
+  requirements:
+    _permission: 'access authenticate'
+  options:
+    no_cache: 'TRUE'

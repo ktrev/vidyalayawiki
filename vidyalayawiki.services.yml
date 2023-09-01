@@ -1,0 +1,4 @@
+services:
+  vidyalayawiki_payment:
+    class: '\Drupal\vidyalayawiki\Plugin\views\access\VidyalayaWikiPaymentTabAccess'
+    parent: default_plugin_manager
